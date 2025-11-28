@@ -40,3 +40,11 @@ export interface Game {
   date: string;
   stats: GameStats[];
 }
+
+export interface Team {
+  id: string;
+  name: string;
+  logo?: string;
+  coach?: string;
+  foundedYear?: string;
+}

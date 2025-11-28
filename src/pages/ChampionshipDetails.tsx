@@ -10,6 +10,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
 import { Badge } from '@/components/ui/badge';
+import { StandingsTable, TeamStats } from '@/components/StandingsTable';
+import { PlayerStatsTable, PlayerStats } from '@/components/PlayerStatsTable';
 
 interface Highlight {
     id: string;
@@ -54,6 +56,30 @@ const ChampionshipDetails = () => {
         type: 'image' as 'image' | 'video',
         url: '',
     });
+
+    // Mock Standings Data
+    const groupA: TeamStats[] = [
+        { position: 1, name: 'Eagles', points: 6, played: 3, won: 3, lost: 0, pointsFor: 245, pointsAgainst: 210, balance: 35 },
+        { position: 2, name: 'Lions', points: 5, played: 3, won: 2, lost: 1, pointsFor: 230, pointsAgainst: 220, balance: 10 },
+        { position: 3, name: 'Tigers', points: 4, played: 3, won: 1, lost: 2, pointsFor: 215, pointsAgainst: 235, balance: -20 },
+        { position: 4, name: 'Bears', points: 3, played: 3, won: 0, lost: 3, pointsFor: 200, pointsAgainst: 225, balance: -25 },
+    ];
+
+    const groupB: TeamStats[] = [
+        { position: 1, name: 'Warriors', points: 6, played: 3, won: 3, lost: 0, pointsFor: 260, pointsAgainst: 200, balance: 60 },
+        { position: 2, name: 'Bulls', points: 5, played: 3, won: 2, lost: 1, pointsFor: 240, pointsAgainst: 230, balance: 10 },
+        { position: 3, name: 'Lakers', points: 4, played: 3, won: 1, lost: 2, pointsFor: 220, pointsAgainst: 240, balance: -20 },
+        { position: 4, name: 'Celtics', points: 3, played: 3, won: 0, lost: 3, pointsFor: 190, pointsAgainst: 240, balance: -50 },
+    ];
+
+    // Mock Player Stats Data
+    const topPlayers: PlayerStats[] = [
+        { rank: 1, name: 'Michael Jordan', team: 'Bulls', gamesPlayed: 3, points: 98, ppg: 32.7 },
+        { rank: 2, name: 'LeBron James', team: 'Lakers', gamesPlayed: 3, points: 85, ppg: 28.3 },
+        { rank: 3, name: 'Stephen Curry', team: 'Warriors', gamesPlayed: 3, points: 82, ppg: 27.3 },
+        { rank: 4, name: 'Kevin Durant', team: 'Eagles', gamesPlayed: 3, points: 78, ppg: 26.0 },
+        { rank: 5, name: 'Giannis Antetokounmpo', team: 'Lions', gamesPlayed: 3, points: 75, ppg: 25.0 },
+    ];
 
     const handleAddHighlight = () => {
         if (!newHighlight.title || !newHighlight.url) {
@@ -107,15 +133,13 @@ const ChampionshipDetails = () => {
                     </TabsList>
 
                     <TabsContent value="overview">
-                        <Card>
-                            <CardHeader>
-                                <CardTitle>Visão Geral</CardTitle>
-                                <CardDescription>Informações gerais sobre o campeonato.</CardDescription>
-                            </CardHeader>
-                            <CardContent>
-                                <p className="text-muted-foreground">Em breve: Tabela de classificação e estatísticas.</p>
-                            </CardContent>
-                        </Card>
+                        <div className="space-y-8">
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                <StandingsTable groupName="Grupo A" teams={groupA} />
+                                <StandingsTable groupName="Grupo B" teams={groupB} />
+                            </div>
+                            <PlayerStatsTable players={topPlayers} />
+                        </div>
                     </TabsContent>
 
                     <TabsContent value="highlights">

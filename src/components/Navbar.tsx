@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Trophy, Users, PlayCircle, FileText } from 'lucide-react';
+import { Trophy, Users, PlayCircle, FileText, Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const Navbar = () => {
@@ -8,6 +8,7 @@ const Navbar = () => {
   const links = [
     { to: '/', icon: Trophy, label: 'Dashboard' },
     { to: '/championships', icon: Trophy, label: 'Campeonatos' },
+    { to: '/teams', icon: Shield, label: 'Times' },
     { to: '/players', icon: Users, label: 'Jogadores' },
     { to: '/game', icon: PlayCircle, label: 'Jogo ao Vivo' },
   ];

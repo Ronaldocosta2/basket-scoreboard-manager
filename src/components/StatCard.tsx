@@ -1,16 +1,18 @@
 import { LucideIcon } from 'lucide-react';
 import { Card, CardContent } from '@/components/ui/card';
+import { cn } from '@/lib/utils';
 
 interface StatCardProps {
   title: string;
   value: string | number;
   icon: LucideIcon;
   trend?: string;
+  className?: string;
 }
 
-const StatCard = ({ title, value, icon: Icon, trend }: StatCardProps) => {
+const StatCard = ({ title, value, icon: Icon, trend, className }: StatCardProps) => {
   return (
-    <Card className="border-border hover:border-primary transition-colors">
+    <Card className={cn("border-border hover:border-primary transition-colors", className)}>
       <CardContent className="p-6">
         <div className="flex items-center justify-between">
           <div>

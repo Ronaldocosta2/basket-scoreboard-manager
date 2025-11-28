@@ -12,6 +12,8 @@ import Navbar from "./components/Navbar";
 
 import ChampionshipDetails from "./pages/ChampionshipDetails";
 
+import Teams from "./pages/Teams";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -25,6 +27,7 @@ const App = () => (
           <Route path="/" element={<Dashboard />} />
           <Route path="/championships" element={<Championships />} />
           <Route path="/championships/:id" element={<ChampionshipDetails />} />
+          <Route path="/teams" element={<Teams />} />
           <Route path="/players" element={<Players />} />
           <Route path="/game" element={<Game />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
