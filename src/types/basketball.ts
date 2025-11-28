@@ -14,6 +14,7 @@ export interface Championship {
   endDate: string;
   status: 'upcoming' | 'ongoing' | 'finished';
   teams: string[];
+  games?: number;
 }
 
 export interface GameStats {

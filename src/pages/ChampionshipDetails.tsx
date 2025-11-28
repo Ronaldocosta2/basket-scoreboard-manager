@@ -108,28 +108,31 @@ const ChampionshipDetails = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background p-8">
-            <div className="container mx-auto">
-                <Button variant="ghost" className="mb-6 gap-2" onClick={() => navigate('/championships')}>
+        <div className="min-h-screen bg-background text-foreground overflow-hidden">
+            {/* Hero Section Background Effect */}
+            <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-500/10 to-transparent pointer-events-none" />
+
+            <div className="container mx-auto px-4 py-8 relative z-10">
+                <Button variant="ghost" className="mb-6 gap-2 hover:bg-orange-500/10 hover:text-orange-500" onClick={() => navigate('/championships')}>
                     <ArrowLeft className="h-4 w-4" /> Voltar
                 </Button>
 
                 <div className="flex items-center justify-between mb-8">
                     <div className="flex items-center gap-4">
-                        <div className="h-16 w-16 rounded-xl bg-primary/10 flex items-center justify-center">
-                            <Trophy className="h-8 w-8 text-primary" />
+                        <div className="h-16 w-16 rounded-xl bg-orange-500/10 flex items-center justify-center">
+                            <Trophy className="h-8 w-8 text-orange-500" />
                         </div>
                         <div>
-                            <h1 className="text-4xl font-bold">{championshipName}</h1>
+                            <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">{championshipName}</h1>
                             <p className="text-muted-foreground">Detalhes e Destaques</p>
                         </div>
                     </div>
                 </div>
 
                 <Tabs defaultValue="highlights" className="space-y-6">
-                    <TabsList>
-                        <TabsTrigger value="overview">Visão Geral</TabsTrigger>
-                        <TabsTrigger value="highlights">Destaques e Galeria</TabsTrigger>
+                    <TabsList className="bg-secondary/50 backdrop-blur-sm">
+                        <TabsTrigger value="overview" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">Visão Geral</TabsTrigger>
+                        <TabsTrigger value="highlights" className="data-[state=active]:bg-orange-500 data-[state=active]:text-white">Destaques e Galeria</TabsTrigger>
                     </TabsList>
 
                     <TabsContent value="overview">
@@ -148,7 +151,7 @@ const ChampionshipDetails = () => {
 
                             <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                                 <DialogTrigger asChild>
-                                    <Button className="gap-2">
+                                    <Button className="gap-2 bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/20">
                                         <Plus className="h-4 w-4" /> Adicionar Destaque
                                     </Button>
                                 </DialogTrigger>
@@ -173,14 +176,14 @@ const ChampionshipDetails = () => {
                                                 <Button
                                                     variant={newHighlight.type === 'image' ? 'default' : 'outline'}
                                                     onClick={() => setNewHighlight({ ...newHighlight, type: 'image' })}
-                                                    className="flex-1"
+                                                    className={`flex-1 ${newHighlight.type === 'image' ? 'bg-orange-600 hover:bg-orange-700' : ''}`}
                                                 >
                                                     <ImageIcon className="mr-2 h-4 w-4" /> Imagem
                                                 </Button>
                                                 <Button
                                                     variant={newHighlight.type === 'video' ? 'default' : 'outline'}
                                                     onClick={() => setNewHighlight({ ...newHighlight, type: 'video' })}
-                                                    className="flex-1"
+                                                    className={`flex-1 ${newHighlight.type === 'video' ? 'bg-orange-600 hover:bg-orange-700' : ''}`}
                                                 >
                                                     <Video className="mr-2 h-4 w-4" /> Vídeo
                                                 </Button>
@@ -206,7 +209,7 @@ const ChampionshipDetails = () => {
                                         </div>
                                     </div>
                                     <DialogFooter>
-                                        <Button onClick={handleAddHighlight}>Salvar Destaque</Button>
+                                        <Button onClick={handleAddHighlight} className="bg-orange-600 hover:bg-orange-700">Salvar Destaque</Button>
                                     </DialogFooter>
                                 </DialogContent>
                             </Dialog>
@@ -214,7 +217,7 @@ const ChampionshipDetails = () => {
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                             {highlights.map((item) => (
-                                <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow group">
+                                <Card key={item.id} className="overflow-hidden hover:shadow-lg transition-shadow group bg-card/50 backdrop-blur-sm border-primary/20 hover:border-orange-500">
                                     <div className="aspect-video relative overflow-hidden bg-muted">
                                         <img
                                             src={item.url}

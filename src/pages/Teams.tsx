@@ -60,17 +60,20 @@ const Teams = () => {
     };
 
     return (
-        <div className="min-h-screen bg-background">
-            <div className="container mx-auto px-4 py-8">
+        <div className="min-h-screen bg-background text-foreground overflow-hidden">
+            {/* Hero Section Background Effect */}
+            <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-500/10 to-transparent pointer-events-none" />
+
+            <div className="container mx-auto px-4 py-8 relative z-10">
                 <div className="flex items-center justify-between mb-8">
                     <div>
-                        <h1 className="text-4xl font-bold mb-2">Times</h1>
+                        <h1 className="text-4xl font-black mb-2 tracking-tight bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Times</h1>
                         <p className="text-muted-foreground">Gerencie as equipes da liga</p>
                     </div>
 
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button className="gap-2">
+                            <Button className="gap-2 bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/20">
                                 <Plus className="h-4 w-4" />
                                 Novo Time
                             </Button>
@@ -121,7 +124,7 @@ const Teams = () => {
                                 </div>
                             </div>
                             <DialogFooter>
-                                <Button onClick={handleAddTeam}>Salvar Time</Button>
+                                <Button onClick={handleAddTeam} className="bg-orange-600 hover:bg-orange-700">Salvar Time</Button>
                             </DialogFooter>
                         </DialogContent>
                     </Dialog>
@@ -129,17 +132,17 @@ const Teams = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {teams.map((team) => (
-                        <Card key={team.id} className="hover:border-primary transition-colors group">
+                        <Card key={team.id} className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-orange-500 transition-all cursor-pointer group">
                             <CardHeader className="flex flex-row items-center gap-4">
-                                <div className="h-16 w-16 rounded-full bg-secondary flex items-center justify-center group-hover:bg-primary/10 transition-colors">
+                                <div className="h-16 w-16 rounded-full bg-secondary flex items-center justify-center group-hover:bg-orange-500/10 transition-colors">
                                     {team.logo ? (
                                         <img src={team.logo} alt={team.name} className="h-12 w-12 object-contain" />
                                     ) : (
-                                        <Shield className="h-8 w-8 text-muted-foreground group-hover:text-primary transition-colors" />
+                                        <Shield className="h-8 w-8 text-muted-foreground group-hover:text-orange-500 transition-colors" />
                                     )}
                                 </div>
                                 <div>
-                                    <CardTitle className="text-xl">{team.name}</CardTitle>
+                                    <CardTitle className="text-xl font-bold">{team.name}</CardTitle>
                                     <p className="text-sm text-muted-foreground">Fundado em {team.foundedYear || 'N/A'}</p>
                                 </div>
                             </CardHeader>

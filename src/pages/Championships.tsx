@@ -68,11 +68,11 @@ const Championships = () => {
   const getStatusColor = (status: Championship['status']) => {
     switch (status) {
       case 'ongoing':
-        return 'bg-primary';
+        return 'bg-orange-500/10 text-orange-500 border-orange-500/20';
       case 'upcoming':
-        return 'bg-team-home';
+        return 'bg-blue-500/10 text-blue-500 border-blue-500/20';
       case 'finished':
-        return 'bg-muted';
+        return 'bg-muted text-muted-foreground border-border';
     }
   };
 
@@ -88,17 +88,20 @@ const Championships = () => {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-background text-foreground overflow-hidden">
+      {/* Hero Section Background Effect */}
+      <div className="fixed top-0 left-0 w-full h-[500px] bg-gradient-to-b from-orange-500/10 to-transparent pointer-events-none" />
+
+      <div className="container mx-auto px-4 py-8 relative z-10">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-4xl font-bold mb-2">Campeonatos</h1>
+            <h1 className="text-4xl font-black mb-2 tracking-tight bg-gradient-to-r from-orange-500 to-red-600 bg-clip-text text-transparent">Campeonatos</h1>
             <p className="text-muted-foreground">Gerencie todos os campeonatos</p>
           </div>
 
           <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="gap-2">
+              <Button className="gap-2 bg-orange-600 hover:bg-orange-700 text-white shadow-lg shadow-orange-500/20">
                 <Plus className="h-4 w-4" />
                 Novo Campeonato
               </Button>
@@ -161,7 +164,7 @@ const Championships = () => {
                 </div>
               </div>
               <DialogFooter>
-                <Button type="submit" onClick={handleAddChampionship}>Salvar Campeonato</Button>
+                <Button type="submit" onClick={handleAddChampionship} className="bg-orange-600 hover:bg-orange-700">Salvar Campeonato</Button>
               </DialogFooter>
             </DialogContent>
           </Dialog>
@@ -171,19 +174,19 @@ const Championships = () => {
           {championships.map((championship) => (
             <Card
               key={championship.id}
-              className="hover:border-primary transition-colors cursor-pointer"
+              className="bg-card/50 backdrop-blur-sm border-primary/20 hover:border-orange-500 transition-all cursor-pointer group"
               onClick={() => navigate(`/championships/${championship.id}`)}
             >
               <CardHeader>
                 <div className="flex items-start justify-between">
-                  <div className="h-12 w-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                    <Trophy className="h-6 w-6 text-primary" />
+                  <div className="h-12 w-12 rounded-lg bg-orange-500/10 flex items-center justify-center mb-4 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                    <Trophy className="h-6 w-6 text-orange-500 group-hover:text-white" />
                   </div>
-                  <Badge className={getStatusColor(championship.status)}>
+                  <Badge variant="outline" className={getStatusColor(championship.status)}>
                     {getStatusLabel(championship.status)}
                   </Badge>
                 </div>
-                <CardTitle className="text-xl">{championship.name}</CardTitle>
+                <CardTitle className="text-xl font-bold">{championship.name}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
@@ -202,7 +205,7 @@ const Championships = () => {
                     <p className="text-xs text-muted-foreground mb-2">Times:</p>
                     <div className="flex flex-wrap gap-1">
                       {championship.teams.map((team, idx) => (
-                        <Badge key={idx} variant="outline" className="text-xs">
+                        <Badge key={idx} variant="secondary" className="text-xs bg-secondary/50">
                           {team}
                         </Badge>
                       ))}
