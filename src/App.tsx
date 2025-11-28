@@ -10,6 +10,8 @@ import Game from "./pages/Game";
 import NotFound from "./pages/NotFound";
 import Navbar from "./components/Navbar";
 
+import ChampionshipDetails from "./pages/ChampionshipDetails";
+
 const queryClient = new QueryClient();
 
 const App = () => (
@@ -22,6 +24,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/championships" element={<Championships />} />
+          <Route path="/championships/:id" element={<ChampionshipDetails />} />
           <Route path="/players" element={<Players />} />
           <Route path="/game" element={<Game />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

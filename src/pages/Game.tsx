@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Plus, Minus, Play, Pause, RotateCcw, Save } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import { ScoreDisplay } from '@/components/ScoreDisplay';
 
 const Game = () => {
   const { toast } = useToast();
@@ -17,7 +18,7 @@ const Game = () => {
   // Timer effect
   useEffect(() => {
     let interval: NodeJS.Timeout | null = null;
-    
+
     if (isPlaying && timeInSeconds > 0 && !gameFinished) {
       interval = setInterval(() => {
         setTimeInSeconds((prev) => {
@@ -66,7 +67,7 @@ const Game = () => {
   const finishGame = () => {
     setGameFinished(true);
     setIsPlaying(false);
-    
+
     // Save game summary
     const gameSummary = {
       id: `game-${Date.now()}`,
@@ -130,44 +131,47 @@ const Game = () => {
                 </div>
               </CardHeader>
               <CardContent className="p-8">
-                <div className="grid grid-cols-3 gap-8 items-center mb-8">
-                  <div className="text-center">
-                    <h2 className="text-2xl font-bold mb-4">Eagles</h2>
-                    <div className="text-6xl font-bold text-primary mb-4">{homeScore}</div>
-                    <div className="flex gap-2 justify-center">
-                      <Button size="sm" onClick={() => adjustScore('home', 1)}>
-                        <Plus className="h-4 w-4" />1
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center mb-12">
+                  {/* Home Team */}
+                  <div className="flex flex-col gap-6">
+                    <ScoreDisplay score={homeScore} teamName="Eagles" isHome={true} />
+
+                    <div className="flex gap-2 justify-center flex-wrap">
+                      <Button variant="outline" size="icon" className="h-10 w-10 rounded-full hover:bg-blue-500 hover:text-white transition-colors" onClick={() => adjustScore('home', 1)}>
+                        <span className="font-bold">+1</span>
                       </Button>
-                      <Button size="sm" onClick={() => adjustScore('home', 2)}>
-                        <Plus className="h-4 w-4" />2
+                      <Button variant="outline" size="icon" className="h-10 w-10 rounded-full hover:bg-blue-500 hover:text-white transition-colors" onClick={() => adjustScore('home', 2)}>
+                        <span className="font-bold">+2</span>
                       </Button>
-                      <Button size="sm" onClick={() => adjustScore('home', 3)}>
-                        <Plus className="h-4 w-4" />3
+                      <Button variant="outline" size="icon" className="h-10 w-10 rounded-full hover:bg-blue-500 hover:text-white transition-colors" onClick={() => adjustScore('home', 3)}>
+                        <span className="font-bold">+3</span>
                       </Button>
-                      <Button size="sm" variant="destructive" onClick={() => adjustScore('home', -1)}>
+                      <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-muted-foreground hover:text-destructive" onClick={() => adjustScore('home', -1)}>
                         <Minus className="h-4 w-4" />
                       </Button>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-center">
-                    <span className="text-4xl font-bold text-muted-foreground">VS</span>
+                  {/* VS / Timer Center */}
+                  <div className="flex flex-col items-center justify-center gap-4">
+                    <div className="text-6xl font-black text-muted-foreground/20 select-none">VS</div>
                   </div>
 
-                  <div className="text-center">
-                    <h2 className="text-2xl font-bold mb-4">Lions</h2>
-                    <div className="text-6xl font-bold text-primary mb-4">{awayScore}</div>
-                    <div className="flex gap-2 justify-center">
-                      <Button size="sm" onClick={() => adjustScore('away', 1)}>
-                        <Plus className="h-4 w-4" />1
+                  {/* Away Team */}
+                  <div className="flex flex-col gap-6">
+                    <ScoreDisplay score={awayScore} teamName="Lions" isHome={false} />
+
+                    <div className="flex gap-2 justify-center flex-wrap">
+                      <Button variant="outline" size="icon" className="h-10 w-10 rounded-full hover:bg-red-500 hover:text-white transition-colors" onClick={() => adjustScore('away', 1)}>
+                        <span className="font-bold">+1</span>
                       </Button>
-                      <Button size="sm" onClick={() => adjustScore('away', 2)}>
-                        <Plus className="h-4 w-4" />2
+                      <Button variant="outline" size="icon" className="h-10 w-10 rounded-full hover:bg-red-500 hover:text-white transition-colors" onClick={() => adjustScore('away', 2)}>
+                        <span className="font-bold">+2</span>
                       </Button>
-                      <Button size="sm" onClick={() => adjustScore('away', 3)}>
-                        <Plus className="h-4 w-4" />3
+                      <Button variant="outline" size="icon" className="h-10 w-10 rounded-full hover:bg-red-500 hover:text-white transition-colors" onClick={() => adjustScore('away', 3)}>
+                        <span className="font-bold">+3</span>
                       </Button>
-                      <Button size="sm" variant="destructive" onClick={() => adjustScore('away', -1)}>
+                      <Button variant="ghost" size="icon" className="h-10 w-10 rounded-full text-muted-foreground hover:text-destructive" onClick={() => adjustScore('away', -1)}>
                         <Minus className="h-4 w-4" />
                       </Button>
                     </div>
